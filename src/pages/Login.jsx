@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../utils/api';
 import { IoIosLogIn } from "react-icons/io";
@@ -43,8 +44,8 @@ const Login = () => {
             <label>Password</label>
           </div>
             <button type='submit'><IoIosLogIn /> Login</button>
-          <p>Don't have an account? <a href="/register">Register</a></p>
-          <a href="/forgotten-password">Forgotten Password ?</a>
+          <p>Don't have an account? <Link to="/register">Register</Link></p>
+          <Link to="/forgotten-password">Forgotten Password ?</Link>
         </form>
     </div>
   )
