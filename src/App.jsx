@@ -9,7 +9,7 @@ import Account from "./pages/Account"
 import Login from "./pages/Login"
 import Register from "./pages/Register"
 import VerifyOTP from "./pages/VerifyOTP"
-import ForgottenPassword from "./pages/forgottenPassword"
+import ForgottenPassword from "./pages/ForgottenPassword"
 
 const App = () => {
   return (
