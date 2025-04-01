@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { getGeminiResponse } from '../utils/geminiAPI';
 import TypingIndicator from '../components/TypingIndicator';
-import { IoIosSend } from "react-icons/io";
+import { BiSolidSend } from "react-icons/bi";
 import { FaHistory } from "react-icons/fa";
 import { FaArrowLeft } from "react-icons/fa";
 
@@ -81,7 +81,7 @@ const Chatbot = () => {
       <div className="input">
         <input type="text" placeholder='Ask me anything...' value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => e.key === "Enter" && sendMessage()}/>
         <input type="file" id='file-upload' hidden/>
-        <button onClick={() => sendMessage()}><IoIosSend /></button>
+        <button onClick={() => sendMessage()}><BiSolidSend /></button>
       </div>
     </div>
   )

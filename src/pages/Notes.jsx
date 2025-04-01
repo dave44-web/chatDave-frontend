@@ -89,7 +89,7 @@ const Notes = () => {
       <div className="notes-list">
         {notes.map((note) => (
           <div className="note-item" key={note._id} onClick={() => openPopup(note, false)}>
-            <h3>{note.title}</h3>
+            <h3>{note.title.substring(0, 10)}...</h3>
             <p>{note.content.substring(0, 20)}...</p>
           </div>
           ))}

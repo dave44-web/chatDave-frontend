@@ -57,7 +57,7 @@ const ForgottenPassword = () => {
         {step === 1 ? (
             <>
                 <h2>Change Password</h2>
-                <input type="text" placeholder='Enter your Email' value={email} onChange={(e) => setEmail(e.target.value)} />
+                <input type="text" placeholder='Enter your Email' value={email} onChange={(e) => setEmail(e.target.value)} className='email' />
                 <button onClick={handleRequestOtp}>Verify Email</button>
             </>
         ) : (
@@ -68,7 +68,7 @@ const ForgottenPassword = () => {
                     <input key={index} type="text" value={digit} maxLength='1' ref={(el) => (inputRefs.current[index] = el)} onChange={(e) => handleChange(index, e)} onKeyDown={(e) => handleKeyDown(index, e)} className="otp-box" />
                 ))}
                 </div>
-                <input type="password" placeholder='New Password' value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
+                <input type="password" placeholder='New Password' value={newPassword} onChange={(e) => setNewPassword(e.target.value)} className='password' />
                 <button onClick={handleResetPassword}>Reset Password</button>
             </>
         )}

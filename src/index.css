@@ -9,9 +9,9 @@
 
 :root {
   --text-color: #f8e8e8;
-  --second-text-color: #9b9cff;
-  --bg-color: #c00c60;
-  --dark-color: #0c0950;
+  --second-text-color: #151517;
+  --bg-color: #c00c39;
+  --dark-color: #231bc4;
 }
 
 body {
@@ -21,23 +21,7 @@ body {
   width: 100%;
   height: 100%;
   align-items: center;
-  background-image: url(assets/background.jpeg);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-}
-
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(30px);
-  z-index: -1;
+  background: var(--second-text-color);
 }
 
 .navbar {
@@ -48,11 +32,11 @@ body::before {
   left: 50%;
   transform: translateX(-50%);
   justify-content: center;
-  background: rgba(255, 255, 255, 0.103);
-  backdrop-filter: blur(5px);
+  background: rgba(0, 0, 0, 0.103);
+  backdrop-filter: blur(15px);
   border-radius: 10px;
   max-width: 600px;
-  width: 80%;
+  width: 90%;
   height: 50px;
 }
 
@@ -77,11 +61,6 @@ body::before {
   color: var(--text-color);
   font-size: 26px;
   text-decoration: none;
-}
-
-.navbar .nav-links li .link.active {
-  border: 2px solid var(--text-color);
-  border-radius: 50%;
 }
 
 .navbar .nav-links .link.log-sign {
@@ -114,7 +93,7 @@ body::before {
 }
 
 .Home .header {
-  color: var(--second-text-color);
+  color: var(--text-color);
   font-size: 35px;
   margin-top: 20px;
   filter: drop-shadow(10px 10px 5px rgba(0, 0, 0, 0.7));
@@ -261,15 +240,17 @@ body::before {
 
 .chatbot .messages .incoming-message {
   padding: 20px;
-  background: rgba(255, 255, 255, 0.7);
   box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(10px);
-  width: 60%;
+  max-width: 500px;
+  width: 90%;
   margin-top: 10px;
+  border: 2px solid var(--bg-color);
   border-radius: 20px 20px 20px 5px;
 }
 
 .chatbot .messages .incoming-message p {
+  color: var(--text-color);
   white-space: pre-line;
   line-height: 1.6;
 }
@@ -277,7 +258,7 @@ body::before {
 .chatbot .messages .outgoing-message {
   align-self: end;
   padding: 20px;
-  background: rgba(255, 255, 255, 0.7);
+  background: var(--text-color);
   box-shadow: -7px 7px 10px rgba(0, 0, 0, 0.486);
   backdrop-filter: blur(10px);
   width: 50%;
@@ -291,11 +272,11 @@ body::before {
   justify-items: center;
   position: fixed;
   bottom: 80px;
-  width: 70%;
+  width: 90%;
   left: 50%;
   transform: translateX(-50%);
   max-width: 700px;
-  padding: 15px;
+  padding: 10px 15px;
   border: 2px solid #c2b7b794;
   border-radius: 35px;
   justify-content: space-between;
@@ -307,6 +288,10 @@ body::before {
   border: none;
   width: 85%;
   outline: none;
+  color: var(--text-color);
+}
+
+.chatbot .input input::placeholder {
   color: var(--text-color);
 }
 
@@ -336,7 +321,7 @@ body::before {
 
 .Notes .section1 {
   display: flex;
-  width: 70%;
+  width: 90%;
   justify-content: space-between;
   align-items: center;
   margin-top: 20px;
@@ -344,7 +329,7 @@ body::before {
 
 .Notes .section1 h2 {
   font-size: 30px;
-  color: var(--second-text-color);
+  color: var(--text-color);
   filter: drop-shadow(3px 3px 5px rgba(0, 0, 0, 0.5));
 }
 
@@ -353,27 +338,26 @@ body::before {
   align-items: center;
   gap: 5px;
   background: none;
-  border: 2px solid var(--second-text-color);
+  border: 2px solid var(--text-color);
   padding: 10px;
   border-radius: 20px;
   font-size: 15px;
-  color: var(--second-text-color);
+  color: var(--text-color);
   transition: .5s ease;
 }
 
 .Notes .section1 button:hover {
-  background: var(--second-text-color);
-  color: black;
+  background: var(--bg-color);
+  border: 2px solid var(--bg-color);
 }
 
 .Notes .notes-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  align-items: center;
   justify-content: center;
   justify-items: center;
-  gap: 20px;
-  width: 80%;
+  gap: 10px;
+  width: 90%;
   height: 100%;
   margin-top: 30px;
 }
@@ -403,6 +387,10 @@ body::before {
   text-transform: capitalize;
 }
 
+.Notes .notes-list .note-item p {
+  text-align: center;
+}
+
 .Notes .popup {
   display: flex;
   position: absolute;
@@ -412,10 +400,13 @@ body::before {
   height: 70%;
   border: 2px solid var(--text-color);
   border-radius: 25px;
-  background: rgba(0, 0, 0, 0.672);
-  backdrop-filter: blur(20px);
+  background: var(--second-text-color);
   animation: pop-in .5s ease;
   transform-origin: 200px;
+}
+
+.Notes .popup .popup-content p::-webkit-scrollbar {
+  display: none;
 }
 
 .Notes .popup .popup-content {
@@ -426,7 +417,7 @@ body::before {
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
-  padding: 30px;
+  padding: 20px;
 }
 
 .Notes .popup .popup-content h2 {
@@ -438,7 +429,7 @@ body::before {
 .Notes .popup .popup-content p {
   color: var(--text-color);
   text-align: left;
-  width: 80%;
+  width: 100%;
   height: 80%;
   font-size: 18px;
   overflow-y: scroll;
@@ -446,8 +437,8 @@ body::before {
 
 .Notes .popup .popup-content .close-btn {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 10px;
+  right: 10px;
   background: none;
   color: var(--text-color);
   border: none;
@@ -538,14 +529,13 @@ body::before {
 
 .login-container h2 {
   font-size: 30px;
-  color: var(--second-text-color);
+  color: var(--text-color);
 }
 
 .login-container form {
   display: flex;
   flex-direction: column;
   gap: 30px;
-  background: rgb(38, 11, 101);
   padding: 30px;
   border: 2px solid var(--text-color);
   border-radius: 20px;
@@ -575,7 +565,7 @@ body::before {
   font-size: .8em;
   padding: 0 6px;
   color: var(--text-color);
-  background: rgb(38, 11, 101);
+  background: var(--second-text-color);
 }
 
 .login-container form .input-box label {
@@ -656,15 +646,15 @@ body::before {
 
 .verify-otp .otp-inputs {
   display: flex;
-  gap: 20px;
-  width: 80%;
-  max-width: 300px;
+  gap: 5px;
+  max-width: 400px;
   justify-content: center;
+  align-items: center;
 }
 
-.verify-otp .otp-inputs input {
-  width: 50px;
-  height: 50px;
+.verify-otp .otp-inputs .otp-box {
+  width: 40px;
+  height: 40px;
   background: none;
   padding: 10px;
   text-align: center;
@@ -803,12 +793,13 @@ body::before {
 }
 
 .change-pass h2 {
+  text-align: center;
   font-size: 30px;
   color: var(--text-color);
   filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.7));
 }
 
-.change-pass input {
+.change-pass .email {
   background: none;
   padding: 20px;
   border-radius: 20px;
@@ -820,17 +811,30 @@ body::before {
 
 .change-pass .otp-inputs {
   display: flex;
-  width: 80%;
   max-width: 400px;
-  gap: 10px;
+  gap: 5px;
   align-items: center;
   justify-content: center;
 }
 
-.change-pass .otp-inputs input {
-  width: 50px;
-  height: 50px;
+.change-pass .otp-inputs .otp-box {
+  width: 40px;
+  height: 40px;
   border-radius: 10px;
+  background: none;
+  padding: 10px;
+  border: 2px solid var(--text-color);
+  outline: none;
+  text-align: center;
+  color: var(--text-color);
+}
+
+.change-pass .password {
+  background: none;
+  border-radius: 20px;
+  border: 2px solid var(--text-color);
+  padding: 15px;
+  color: var(--text-color);
 }
 
 .change-pass button {
@@ -852,7 +856,7 @@ body::before {
 
 @media(max-width: 550px) {
   .Home .section1 .row1 h1 {
-    font-size: 45px;
+    font-size: 35px;
   }
   .Home .section1 .row2 {
     display: none;
@@ -864,18 +868,24 @@ body::before {
 
   .Home .section2 .row2 h1 {
     font-size: 25px;
+    text-align: right;
+    margin-right: 10px;
   }
 
   .chatbot .messages {
-    max-height: 79vh;
-  }
-
-  .chatbot .messages .incoming-message {
-    width: 80%;
+    max-height: 70vh;
   }
   
   .chatbot .messages .outgoing-message {
     width: 70%;
+  }
+
+  .chatbot .messages .outgoing-message p {
+    font-size: .8rem;
+  }
+
+  .chatbot .messages .incoming-message p {
+    font-size: .8rem;
   }
 
   .chatbot .historyicon {
@@ -883,7 +893,11 @@ body::before {
   }
 
   .Notes .popup {
-    width: 80%;
+    width: 90%;
+  }
+
+  .Notes .popup .popup-content h2 {
+    font-size: 25px;
   }
 
   .Notes .popup .popup-content .editor textarea {
@@ -907,12 +921,27 @@ body::before {
 
 @media(max-width: 380px) {
   .chatbot .messages {
-    max-height: 75vh;
+    max-height: 70vh;
+  }
+
+  .Notes .notes-list {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 20px;
+  }
+
+  .Notes .notes-list .note-item {
+    width: 120px;
+    height: 120px;
+    gap: 10px;
+  }
+
+  .Notes .notes-list .note-item h3 {
+    font-size: 16px;
   }
 }
 
 @media(max-height: 450px) {
   .chatbot .messages {
-    max-height: 60vh;
+    max-height: 70vh;
   }
 }
