@@ -1,15 +1,19 @@
 import React, { useRef, useState } from 'react'
 import { requestPasswordReset, resetPassword } from '../utils/api';
 import { useNavigate } from 'react-router-dom';
+import TypingIndicator from "../components/TypingIndicator";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const ForgottenPassword = () => {
     const [email, setEmail] = useState("");
-        const [otp, setOtp] = useState(new Array(6).fill(""));
-        const [newPassword, setNewPassword] = useState("")
-        const [step, setStep] = useState(1);
-        const navigate = useNavigate();
-        const inputRefs = useRef([]);
+    const [otp, setOtp] = useState(new Array(6).fill(""));
+    const [newPassword, setNewPassword] = useState("")
+    const [step, setStep] = useState(1);
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
+    const inputRefs = useRef([]);
     
         const handleChange = (index, e) => {
             const value = e.target.value;
@@ -31,34 +35,50 @@ const ForgottenPassword = () => {
         }
     
         const handleRequestOtp = async () => {
+            setLoading(true);
+
             const res = await requestPasswordReset(email);
-            alert(res.message);
-            if (res.message === "Otp sent") setStep(2);
+            if (res.message === "User not found") {
+                toast.error(res.message);
+            };
+            if (res.message === "Otp sent") {
+                toast.success(res.message)
+                setStep(2)
+            };
+            setLoading(false);
         };
     
         const handleResetPassword = async (e) => {
             e.preventDefault();
+            setLoading(true);
     
             const enteredOtp = otp.join("");
             if (enteredOtp.length !== otp.length) {
-                alert("Enter Complete OTP")
+                toast.warning("Enter Complete OTP")
+                setLoading(false);
                 return;
             }
     
             const res = await resetPassword(email, enteredOtp, newPassword);
-    
-            alert(res.message);
-            if (res.message === "Password Reset successful");
-            localStorage.removeItem("token")
-            navigate('/login')
+            toast.success(res.message);
+            if (res.message === "Password Reset successful"){
+                localStorage.removeItem("token")
+                navigate('/login')
+            }
+            setLoading(false);
         }
   return (
     <div className='change-pass'>
         {step === 1 ? (
             <>
                 <h2>Change Password</h2>
-                <input type="text" placeholder='Enter your Email' value={email} onChange={(e) => setEmail(e.target.value)} className='email' />
-                <button onClick={handleRequestOtp}>Verify Email</button>
+                <input type="email" placeholder='Enter your Email' value={email} onChange={(e) => setEmail(e.target.value)} className='email' required/>
+                
+                {loading ? (
+                    <button onClick={handleRequestOtp} className='btn'><TypingIndicator /></button>
+                ) : (
+                    <button onClick={handleRequestOtp} className='btn'>Verify Email</button>
+                )}
             </>
         ) : (
             <>
@@ -69,9 +89,16 @@ const ForgottenPassword = () => {
                 ))}
                 </div>
                 <input type="password" placeholder='New Password' value={newPassword} onChange={(e) => setNewPassword(e.target.value)} className='password' />
-                <button onClick={handleResetPassword}>Reset Password</button>
+                
+                {loading ? (
+                    <button onClick={handleResetPassword} className='btn'><TypingIndicator /></button>
+                ) : (
+                    <button onClick={handleResetPassword} className='btn'>Reset Password</button>
+                )}
             </>
         )}
+        <ToastContainer
+        theme='dark' />
     </div>
   )
 }

@@ -1,25 +1,33 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { registerUser } from '../utils/api'
+import TypingIndicator from '../components/TypingIndicator';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Register = () => {
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
       e.preventDefault();
 
+      setLoading(true);
+
       try{
         const data = await registerUser(name, email, password);
-        alert(data.message)
-
+        toast.success(data.message)
         localStorage.setItem("email", email)
+
+        setLoading(false);
 
         navigate("/verify-otp");
       } catch(error) {
-        alert(error.message || "Registeration Failed");
+        toast.error(error.message || "Registeration Failed");
+        setLoading(false)
       }
     };
 
@@ -39,9 +47,17 @@ const Register = () => {
               <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
               <label>Password</label>
             </div>
-            <button type='submit'>Register</button>
+
+            {loading ? (
+              <button type='submit'><TypingIndicator /></button>
+            ) : (
+              <button type='submit'>Register</button>
+            )}
             <p>Already have an account? <Link to="/login">Login</Link></p>
         </form>
+        <ToastContainer
+        theme='dark'
+        />
     </div>
   )
 }

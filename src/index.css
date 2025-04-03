@@ -837,7 +837,7 @@ body {
   color: var(--text-color);
 }
 
-.change-pass button {
+.change-pass .btn {
   background: var(--bg-color);
   padding: 15px;
   border: 2px solid var(--bg-color);
@@ -847,7 +847,7 @@ body {
   transition: .5s ease;
 }
 
-.change-pass button:hover {
+.change-pass .btn:hover {
   background: var(--text-color);
   border: 2px solid var(--text-color);
   color: #000;

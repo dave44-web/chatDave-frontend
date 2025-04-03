@@ -2,12 +2,16 @@ import { useEffect, useRef, useState } from "react"
 import { verifyOTP, sendOTP } from "../utils/api"
 import { useNavigate } from "react-router-dom"
 import { FaCheck } from "react-icons/fa6";
+import TypingIndicator from "../components/TypingIndicator";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const VerifyOTP = ({ email: initialEmail }) => {
 
     const [email, setEmail] = useState(initialEmail || "")
     const [otp, setOtp] = useState(new Array(6).fill(""));
     const [resendDisabled, setResendDisabled] = useState(false);
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const inputRefs = useRef([]);
 
@@ -44,34 +48,42 @@ const VerifyOTP = ({ email: initialEmail }) => {
         const enteredOtp = otp.join("");
 
         if(!email) {
-            alert("Please enter email");
+            toast.warning("Please enter email");
+            return;
+        }
+        
+        if(!enteredOtp) {
+            toast.warning("Please enter otp");
             return;
         }
 
         if (enteredOtp.length !== otp.length){
-            alert("Enter complete Otp");
+            toast.error("Enter complete Otp");
             return;
         }
         try {
+            setLoading(true);
             const result = await verifyOTP(email, enteredOtp);
-            alert(result.message);
+            toast.success(result.message);
+            setLoading(false);
             navigate("/login");
         } catch (error) {
-            alert(error.message)
+            toast.error(error.message)
+            setLoading(false);
         }
     }
 
     const handleResendOTP = async () => {
         if(!email) {
-            alert("Email is required to resend OTP");
+            toast.error("Email is required to resend OTP");
             return;
         }
         setResendDisabled(true);
         try {
             const response = await sendOTP(email);
-            alert(response.message);
+            toast.success(response.message);
         } catch (error) {
-            alert(error.message || "Error resending OTP");
+            toast.error(error.message || "Error resending OTP");
         }
 
         setTimeout(() => setResendDisabled(false), 60000);
@@ -86,10 +98,17 @@ const VerifyOTP = ({ email: initialEmail }) => {
                     <input key={index} type="text" value={digit} maxLength='1' ref={(el) => (inputRefs.current[index] = el)} onChange={(e) => handleChange(index, e)} onKeyDown={(e) => handleKeyDown(index, e)} className="otp-box" />
                 ))}
             </div>
-            <button onClick={handleSubmit}>Verify <FaCheck /></button>
+            {loading ? (
+                <button onClick={handleSubmit}><TypingIndicator /></button>
+            ) : (
+                <button onClick={handleSubmit}>Verify <FaCheck /></button>
+            )}
             <button onClick={handleResendOTP} disabled={resendDisabled}>
                 {resendDisabled ? "Resend OTP (Wait 1 min)" : "Resend OTP"}
             </button>
+            <ToastContainer
+                theme='dark'
+            />
     </div>
   )
 }
